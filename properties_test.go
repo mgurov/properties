@@ -460,10 +460,11 @@ func TestDisableExpansion(t *testing.T) {
 
 func TestDisableExpansionWorksWithSet(t *testing.T) {
 	p := NewProperties()
+	p.MustSet("p1", "a")
 	p.DisableExpansion = true
-	p.MustSet("blah", "fooe")
+	p.MustSet("p2", "b")
 	actual := p.String()
-	expected := "blah = fooe\n"
+	expected := "p1 = a\np2 = b\n"
 
 	if actual != expected {
 		t.Error("Expected", expected, "but got", actual)
