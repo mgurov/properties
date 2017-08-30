@@ -458,6 +458,18 @@ func TestDisableExpansion(t *testing.T) {
 	assert.Equal(t, p.MustGet("keyB"), "${keyA}")
 }
 
+func TestDisableExpansionWorksWithSet(t *testing.T) {
+	p := NewProperties()
+	p.DisableExpansion = true
+	p.MustSet("blah", "fooe")
+	actual := p.String()
+	expected := "blah = fooe\n"
+
+	if actual != expected {
+		t.Error("Expected", expected, "but got", actual)
+	}
+}
+
 func TestMustGet(t *testing.T) {
 	input := "key = value\nkey2 = ghi"
 	p := mustParse(t, input)
